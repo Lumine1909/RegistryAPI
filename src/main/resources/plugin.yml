@@ -1,0 +1,7 @@
+name: RegistryAPI
+version: alpha-1.1
+main: io.github.lumine1909.RegistryAPIPlugin
+api-version: 1.13
+authors:
+  - Lumine1909
+load: STARTUP
