@@ -8,6 +8,7 @@ version = "1.1"
 repositories {
     mavenCentral()
     mavenLocal()
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
