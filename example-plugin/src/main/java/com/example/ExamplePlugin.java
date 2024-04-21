@@ -19,7 +19,8 @@ public class ExamplePlugin extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        BiomeColor bc = new BiomeColor().setGrassColor(0).setFoliageColor(0);
+        //Biome color: grass #ffffff, foliage #000000
+        BiomeColor bc = new BiomeColor().setGrassColor(16777215).setFoliageColor(0);
         biome = RegistryAPI.Manager.BIOME.createBiome(bc, new ResourceKey("example", "biome1"));
     }
 

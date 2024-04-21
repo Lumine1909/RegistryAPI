@@ -1,3 +1,3 @@
 rootProject.name = "RegistryAPI"
 include("api")
-include("exampleplugin")
+include("example-plugin")
