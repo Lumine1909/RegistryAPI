@@ -26,7 +26,7 @@ tasks {
         dependsOn(shadowJar)
     }
     shadowJar {
-        exclude(":exampleplugin")
+        exclude(":example-plugin")
         archiveFileName.set("RegistryAPI-$version.jar")
     }
     test {
