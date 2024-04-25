@@ -14,9 +14,9 @@ public class WrappedBiome implements Biome {
         this.color = color;
         Object biomeBuilder = CtBiomeBase_Builder.newInstance();
         MBiomeBase_Builder_generationSettings.invoke(biomeBuilder,
-                MBiomeBase_getGenerationSettings.invoke(OBiome_Plains));
+                FBiomeBase_generationSettings.get(OBiome_Plains));
         MBiomeBase_Builder_mobSpawnSettings.invoke(biomeBuilder,
-                MBiomeBase_getMobSettings.invoke(OBiome_Plains));
+                FBiomeBase_mobSettings.get(OBiome_Plains));
         MBiomeBase_Builder_temperature.invoke(biomeBuilder, 0.7F);
         MBiomeBase_Builder_downfall.invoke(biomeBuilder, 0.8F);
         Object biomeFogBuilder = CtBiomeFog_Builder.newInstance();

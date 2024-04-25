@@ -56,12 +56,10 @@ public class Reflection {
     public static MethodAccessor MMinecraftServer_registryAccess = new MethodAccessor(CMinecraftServer, 0, CIRegistryCustom_Dimension);
     public static MethodAccessor MIRegistryCustom_registryOrThrow = new MethodAccessor(CIRegistryCustom, 0, CIRegistry, CResourceKey);
     public static MethodAccessor MResourceKey_create = new MethodAccessor(CResourceKey, 0, CResourceKey, CResourceKey, CMinecraftKey);
-    public static MethodAccessor MRegistryMaterials_get = new MethodAccessor(CRegistryMaterials, 0, Object.class, CResourceKey);
+    public static MethodAccessor MRegistryMaterials_get = new MethodAccessor(CRegistryMaterials, 0, Object.class, CMinecraftKey);
     public static MethodAccessor MRegistryMaterials_createIntrusiveHolder = new MethodAccessor(CRegistryMaterials, 0, CHolder_Reference, Object.class);
     public static MethodAccessor MRegistryMaterials_register = new MethodAccessor(CRegistryMaterials, 0, CHolder_Reference, CResourceKey, Object.class, CLifecycle);
     public static MethodAccessor MLifeCycle_stable = new MethodAccessor(CLifecycle, "stable");
-    public static MethodAccessor MBiomeBase_getGenerationSettings = new MethodAccessor(CBiomeBase, 0, CBiomeSettingsGeneration);
-    public static MethodAccessor MBiomeBase_getMobSettings = new MethodAccessor(CBiomeBase, 0, CBiomeSettingsMobs);
     public static MethodAccessor MBiomeBase_Builder_generationSettings = new MethodAccessor(CBiomeBase_Builder, 0, CBiomeBase_Builder, CBiomeSettingsGeneration);
     public static MethodAccessor MBiomeBase_Builder_mobSpawnSettings = new MethodAccessor(CBiomeBase_Builder, 0, CBiomeBase_Builder, CBiomeSettingsMobs);
     public static MethodAccessor MBiomeBase_Builder_temperature = new MethodAccessor(CBiomeBase_Builder, 0, CBiomeBase_Builder, float.class);
@@ -91,7 +89,8 @@ public class Reflection {
     public static FieldAccessor FRegistryMaterials_unregisteredIntrusiveHolders = new FieldAccessor(CRegistryMaterials, 5, Map.class);
     public static FieldAccessor FWorldServer_chunkSource = new FieldAccessor(CWorldServer, 0, CChunkProviderServer);
     public static FieldAccessor FChunkProviderServer_chunkMap = new FieldAccessor(CChunkProviderServer, 0, CPlayerChunkMap);
-
+    public static FieldAccessor FBiomeBase_generationSettings = new FieldAccessor(CBiomeBase, 0, CBiomeSettingsGeneration);
+    public static FieldAccessor FBiomeBase_mobSettings = new FieldAccessor(CBiomeBase, 0, CBiomeSettingsMobs);
     //All constructors
     public static ConstructorAccessor CtMinecraftKey = new ConstructorAccessor(CMinecraftKey, String.class, String.class);
     public static ConstructorAccessor CtBiomeBase_Builder = new ConstructorAccessor(CBiomeBase_Builder);
@@ -107,9 +106,5 @@ public class Reflection {
                     FRegistries_BIOME.get(null));
     public static Object OBiome_Plains = MRegistryMaterials_get
             .invoke(ORegistryMaterials_BiomeBase_,
-                    MResourceKey_create.invoke(
-                            null,
-                            FRegistries_BIOME.get(null),
-                            CtMinecraftKey.newInstance("minecraft", "plains")
-                    ));
+                    CtMinecraftKey.newInstance("minecraft", "plains"));
 }
