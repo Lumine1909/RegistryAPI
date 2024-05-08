@@ -8,6 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+
 public class RegistryAPIPlugin extends JavaPlugin {
     BiomeManager biomeManager;
     public static RegistryAPIPlugin plugin;

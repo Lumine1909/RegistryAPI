@@ -4,8 +4,11 @@ import io.github.lumine1909.api.objects.Biome;
 import io.github.lumine1909.api.objects.BiomeColor;
 import io.github.lumine1909.api.objects.ResourceKey;
 
+import java.util.Optional;
+
 import static io.github.lumine1909.RegistryAPIPlugin.plugin;
 import static io.github.lumine1909.reflection.Reflection.*;
+import static io.github.lumine1909.Util.*;
 
 public class WrappedBiome implements Biome {
     private final Object nmsBiome;
@@ -17,20 +20,16 @@ public class WrappedBiome implements Biome {
                 FBiomeBase_generationSettings.get(OBiome_Plains));
         MBiomeBase_Builder_mobSpawnSettings.invoke(biomeBuilder,
                 FBiomeBase_mobSettings.get(OBiome_Plains));
-        MBiomeBase_Builder_temperature.invoke(biomeBuilder, 0.7F);
-        MBiomeBase_Builder_downfall.invoke(biomeBuilder, 0.8F);
-        Object biomeFogBuilder = CtBiomeFog_Builder.newInstance();
-        if (color.getGrassColor() != -1) {
-            MBiomeFog_Builder_grassColor.invoke(biomeFogBuilder, color.getGrassColor());
-        }
-        if (color.getFoliageColor() != -1) {
-            MBiomeFog_Builder_foliageColor.invoke(biomeFogBuilder, color.getFoliageColor());
-        }
-        MBiomeFog_Builder_fogColor.invoke(biomeFogBuilder, color.getFogColor());
-        MBiomeFog_Builder_skyColor.invoke(biomeFogBuilder, color.getSkyColor());
-        MBiomeFog_Builder_waterColor.invoke(biomeFogBuilder, color.getWaterColor());
-        MBiomeFog_Builder_waterFogColor.invoke(biomeFogBuilder, color.getWaterFogColor());
-        MBiomeBase_Builder_specialEffects.invoke(biomeBuilder, MBiomeFog_Builder_build.invoke(biomeFogBuilder));
+        FBiomeBase_Builder_temperature.set(biomeBuilder, 0.7F);
+        FBiomeBase_Builder_downfall.set(biomeBuilder, 0.8F);
+        Object biomeFog = CtBiomeFog.newInstance(
+                color.getFogColor(), color.getWaterColor(), color.getWaterFogColor(), color.getSkyColor(),
+                wrapOptional(color.getFoliageColor() == -1 ? null : color.getFoliageColor()),
+                wrapOptional(color.getGrassColor() == -1 ? null : color.getGrassColor()),
+                OBiomeFog_GrassColor_none,
+                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
+        );
+        MBiomeBase_Builder_specialEffects.invoke(biomeBuilder, biomeFog);
         nmsBiome = MBiomeBase_Builder_build.invoke(biomeBuilder);
         plugin.getBiomeManager().registerBiome(this, key);
     }

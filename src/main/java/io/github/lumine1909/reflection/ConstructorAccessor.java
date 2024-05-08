@@ -20,7 +20,7 @@ public class ConstructorAccessor {
     }
     public ConstructorAccessor(Class<?> clazz, Class<?>... arguments) {
         try {
-            constructor = clazz.getConstructor(arguments);
+            constructor = clazz.getDeclaredConstructor(arguments);
             constructor.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();

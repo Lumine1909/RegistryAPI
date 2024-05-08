@@ -15,7 +15,7 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    compileOnly("org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
     implementation(project(":api"))
 }
 

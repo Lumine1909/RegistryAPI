@@ -5,13 +5,9 @@ import java.util.Arrays;
 
 public class MethodAccessor {
     private Method method = null;
-    public MethodAccessor(Class<?> clazz, int index, Class<?> returnType, Class<?>... arguments) {
+    public MethodAccessor(Class<?> clazz, Class<?> returnType, Class<?>... arguments) {
         for (Method m : clazz.getDeclaredMethods()) {
             if (m.getReturnType().equals(returnType) && m.getParameterCount() == arguments.length && Arrays.equals(m.getParameterTypes(), arguments)) {
-                if (index > 0) {
-                    index--;
-                    continue;
-                }
                 method = m;
                 method.setAccessible(true);
                 return;
@@ -23,7 +19,7 @@ public class MethodAccessor {
             method = clazz.getDeclaredMethod(name, arguments);
             method.setAccessible(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     public Method getMethod() {
@@ -37,8 +33,7 @@ public class MethodAccessor {
             method.setAccessible(true);
             return method.invoke(object, arguments);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }

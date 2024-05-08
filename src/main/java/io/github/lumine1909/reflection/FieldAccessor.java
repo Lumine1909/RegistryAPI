@@ -26,7 +26,7 @@ public class FieldAccessor {
             field = clazz.getDeclaredField(name);
             field.setAccessible(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -42,9 +42,8 @@ public class FieldAccessor {
             field.setAccessible(true);
             return field.get(o);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public void set(Object o, Object value) {
@@ -52,7 +51,7 @@ public class FieldAccessor {
             field.setAccessible(true);
             field.set(o, value);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
